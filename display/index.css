@@ -21,6 +21,8 @@ textarea {
     text-align: center;
     letter-spacing: 0.3em;
     padding: 1em;
+    box-sizing: border-box; 
+    max-width: 100%;
 }
 button {
     background-color: gray;
@@ -42,4 +44,10 @@ td {
 }
 td.on {
     background-color: navy;
+}
+
+@media (max-width: 650px) {
+    body {
+        margin: 0.5rem;
+    } 
 }
