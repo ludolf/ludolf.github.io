@@ -1,0 +1,97 @@
+Pitfall := 30
+Energy := 40
+
+avoid_pitfall := () {
+  field := Map[Ludolf.position.x, Ludolf.position.y]
+  if field = Pitfall {
+    Ludolf.avoid()
+  }
+}
+
+charge_energy := () {
+  field := Map[Ludolf.position.x, Ludolf.position.y]
+  if field = Energy {
+    Ludolf.charge()
+  }
+}
+
+move_to := (x, y) {
+  while Ludolf.position.x != x | Ludolf.position.y != y {
+
+    avoid_pitfall()
+
+    if Ludolf.position.x > x {
+      Ludolf.left()
+    }
+    else if Ludolf.position.x < x {
+      Ludolf.right()
+    }
+    
+    if Ludolf.position.y > y {
+      Ludolf.down()
+    }
+    else if Ludolf.position.y < y {
+      Ludolf.up()
+    }
+  }
+}
+
+Display("From beginning")
+
+move_to(0, 0)
+charge_energy()
+
+Display("To energy")
+
+level := 0
+
+bottom := 0
+left := 0
+top := Map.size - 1
+right := Map.size - 1
+
+while level < 2 {
+  level := level + 1
+
+  // upwards
+  y := bottom
+  while y <= top {
+    Ludolf.up()
+    charge_energy()
+    y := y + 1
+  }
+  left := left + 1
+
+  // to the right
+  x := left
+  while x <= right {
+    Ludolf.right()
+    charge_energy()
+    x := x + 1
+  }
+  top := top - 1
+
+  // downwards
+  y := top
+  while y >= bottom {
+    Ludolf.down()
+    charge_energy()
+    y := y - 1
+  }
+  right := right - 1
+
+  // to the left
+  x := right
+  while x >= left {
+    Ludolf.left()
+    charge_energy()
+    x := x - 1
+  }
+  bottom := bottom + 1
+}
+
+Display("To the rocket")
+
+move_to(Rocket.position.x, Rocket.position.y)
+
+Rocket.start()

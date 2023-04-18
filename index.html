@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LudolfC Control Panel</title>
+    <meta name="author" content="Tomas Tulka">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <meta charset="utf-8">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mansalva&family=Roboto&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap">
+    <link rel="stylesheet" type="text/css" href="index.css">    
+  </head>
+  <body>
+    <div id="menu-bg"></div>
+    <div id="main">
+      <div id="menu">
+        <div class="logo"></div>
+        <div>
+          <a href="#tips">&#x1F4A1;</a>
+          <a href="#localization">&#x1F310;</a>
+          <a href="https://github.com/ludolf/ludolfc" target="_blank">&#x1F3E0;</a>
+        </div>
+      </div>
+      <div id="panel">
+        <div class="panel__left">
+          <div id="position">1:1</div>
+          <div class="editor">
+            <div class="line-numbers"><span></span></div>
+            <textarea id="code" rows="13" spellcheck="false" wrap="off">
+i := 3
+while i &gt; 0 {
+  Display(i, "...")
+  i := i - 1
+}
+Display("Start!")
+Display(Map)</textarea>
+          </div>
+          <div id="errorMarker" class="errorMarker">&nbsp;</div>
+          <div class="controls">
+            <div class="controls__left">
+              <button class="char" type="button">{</button>
+              <button class="char" type="button">}</button>
+              <button class="char" type="button">&lt;</button>
+              <button class="char" type="button">&gt;</button>
+              <button class="char" type="button">&</button>
+              <button class="char" type="button">|</button>
+              <button class="char" type="button">:</button>
+              <button class="char" type="button">=</button>
+            </div>
+            <div class="controls__right">
+              <button id="runButton" class="run" type="button"></button>
+            </div>
+          </div>
+        </div>
+        <div class="panel__right">
+          <div id="display" tabindex="-1">
+            <div id="resultBox"><div id="result"></div></div>
+            <table id="map"></table>
+          </div>
+          <div id="score"></div>
+        </div>
+      </div>
+      <div class="separator"><a name="tips"></a></div>
+      <div class="tips localization en">
+        <div>
+          <div>Assignment</div>
+          <code>
+            a1 := 1 + 2.3<br>
+            Hello := "Hello" + "World!"<br>
+            true_ := True<br>
+            <br>
+            four := 3 + 3 / 3<br>
+            two := (3 + 3) / 3<br>
+            five := four + 1<br>
+            <br>
+            false_ := five = 5 & five &lt; 5<br>
+            true_&nbsp; := False | True
+          </code>
+        </div>
+        <div>
+          <div>Arrays</div>
+          <code>
+            empty := []<br>
+            <br>
+            arr := [1,2,3]<br>
+            one := arr[0]<br>
+            arr[0] := 111<br>
+            <br>
+            multi := [[1],["abc", True]]<br>
+            abc := multi[1,0]<br>
+            <br>
+            two := multi[1].size
+          </code>
+        </div>
+        <div>
+          <div>Conditions</div>
+          <code>
+            if a = 1 {<br>
+            &nbsp; is_one := True<br>
+            }<br>
+            <br>
+            if a &gt; 1 {<br>
+            &nbsp; greater := True<br>
+            }<br>
+            else {<br>
+            &nbsp; greater := False<br>
+            }
+          </code>
+        </div>
+        <div>
+          <div>Loops</div>
+          <code>
+            i := 0<br>
+            while i &lt; 5 {<br>
+            &nbsp; i := i + 1<br>
+            }<br>
+            <br>
+            j := 1<br>
+            while j &lt; i {<br>
+            &nbsp; j := j + 1<br>
+            &nbsp; i := i - 1<br>
+            }
+          </code>
+        </div>
+        <div>
+          <div>Functions</div>
+          <code>
+            func_one := (){ 1 }<br>
+            three := func_one() + 2<br>
+            <br>
+            identity := (x){ x }<br>
+            four := identity(4)<br>
+            <br>
+            plus := (x,y){ x + y }<br>
+            five := plus(2,3)<br>
+            <br>
+            Display(1 + 2)<br>
+            <br>
+            display_1_2 := (){<br>
+            &nbsp; Display(1)<br>
+            &nbsp; Display(2)<br>
+            }<br>
+            display_1_2()
+          </code>
+        </div>
+        <div>
+          <div>Objects</div>
+          <code>
+            empty := {}<br>
+            <br>
+            coordinates := { x:1, y:2 }<br>
+            x := coordinates.x<br>
+            y := coordinates.y<br>
+            <br>
+            robot := {<br>
+            &nbsp; name: "Ludolf",<br>
+            &nbsp; position: coordinates,<br>
+            &nbsp; move: (x,y){<br>
+            &nbsp; &nbsp; position.x := x<br>
+            &nbsp; &nbsp; position.y := y<br>
+            &nbsp; }<br>
+            }<br>
+            robot.move(5,8)<br>
+            Display(robot.position)
+          </code>
+        </div>
+        <div>
+          <div>Ludolf & Display</div>
+          <code>
+            Ludolf.up()<br>
+            Ludolf.down()<br>
+            Ludolf.right()<br>
+            Ludolf.left()<br>
+            <br>
+            Ludolf.avoid()<br>
+            Ludolf.charge()<br>
+            <br>
+            Ludolf.position.x<br>
+            Ludolf.position.y<br>
+            <br>
+            Display(1)<br>
+            Display("Hello!")<br>
+            Display("x =", 123)<br>
+            Display(Ludolf)<br>
+          </code>
+        </div>
+      </div>
+      <div class="tips localization de">
+        <div>
+          <div>Zuweisung</div>
+          <code>
+            a1 := 1 + 2.3<br>
+            Hello := "Hallo" + "Welt!"<br>
+            wahr_ := Wahr<br>
+            <br>
+            vier := 3 + 3 / 3<br>
+            zwei := (3 + 3) / 3<br>
+            fünf := vier + 1<br>
+            <br>
+            unwahr_ := Unwahr & Wahr<br>
+            wahr_&nbsp; := Unwahr | Wahr
+          </code>
+        </div>
+        <div>
+          <div>Felder</div>
+          <code>
+            leer := []<br>
+            <br>
+            feld := [1,2,3]<br>
+            eins := feld[0]<br>
+            feld[0] := 111<br>
+            <br>
+            multi := [[1],["abc", Wahr]]<br>
+            abc := multi[1,0]<br>
+            <br>
+            zwei := multi[1].größe
+          </code>
+        </div>
+        <div>
+          <div>Bedingungen</div>
+          <code>
+            falls a = 1 {<br>
+            &nbsp; ist_eins := Wahr<br>
+            }<br>
+            <br>
+            falls a &gt; 1 {<br>
+            &nbsp; ist_größer := Wahr<br>
+            }<br>
+            sonst {<br>
+            &nbsp; ist_größer := Unwahr<br>
+            }
+          </code>
+        </div>
+        <div>
+          <div>Schleifen</div>
+          <code>
+            i := 0<br>
+            solange i &lt; 5 {<br>
+            &nbsp; i := i + 1<br>
+            }<br>
+            <br>
+            j := 1<br>
+            solange j &lt; i {<br>
+            &nbsp; j := j + 1<br>
+            &nbsp; i := i - 1<br>
+            }
+          </code>
+        </div>
+        <div>
+          <div>Functionen</div>
+          <code>
+            func_eins := (){ 1 }<br>
+            drei := func_eins() + 2<br>
+            <br>
+            identität := (x){ x }<br>
+            vier := identität(4)<br>
+            <br>
+            plus := (x,y){ x + y }<br>
+            fünf := plus(2,3)<br>
+            <br>
+            Anzeigen(1 + 2)<br>
+            <br>
+            anzeigen_1_2 := (){<br>
+            &nbsp; Anzeigen(1)<br>
+            &nbsp; Anzeigen(2)<br>
+            }<br>
+            anzeigen_1_2()
+          </code>
+        </div>
+        <div>
+          <div>Objekte</div>
+          <code>
+            leer := {}<br>
+            <br>
+            koordinaten := { x:1, y:2 }<br>
+            x := koordinaten.x<br>
+            y := koordinaten.y<br>
+            <br>
+            robot := {<br>
+            &nbsp; name: "Ludolf",<br>
+            &nbsp; position: koordinaten,<br>
+            &nbsp; bewege: (x,y){<br>
+            &nbsp; &nbsp; position.x := x<br>
+            &nbsp; &nbsp; position.y := y<br>
+            &nbsp; }<br>
+            }<br>
+            robot.bewege(5,8)<br>
+            Anzeigen(robot.position)
+          </code>
+        </div>
+        <div>
+          <div>Ludolf & Anzeigen</div>
+          <code>
+            Ludolf.hoch()<br>
+            Ludolf.runter()<br>
+            Ludolf.rechts()<br>
+            Ludolf.links()<br>
+            <br>
+            Ludolf.vermeiden()<br>
+            Ludolf.aufladen()<br>
+            <br>
+            Ludolf.position.x<br>
+            Ludolf.position.y<br>
+            <br>
+            Anzeigen(1)<br>
+            Anzeigen("Hello!")<br>
+            Anzeigen("x =", 123)<br>
+            Anzeigen(Ludolf)<br>
+          </code>
+        </div>
+      </div>
+      <div class="tips localization cs">
+        <div>
+          <div>Přiřazení</div>
+          <code>
+            a1 := 1 + 2.3<br>
+            Ahoj := "Ahoj" + "světe!"<br>
+            pravda_ := Pravda<br>
+            <br>
+            čtyři := 3 + 3 / 3<br>
+            dva := (3 + 3) / 3<br>
+            pět := čtyři + 1<br>
+            <br>
+            nepravda_ := pět = 5 & pět &lt; 5<br>
+            pravda_&nbsp; := Nepravda | Pravda
+          </code>
+        </div>
+        <div>
+          <div>Pole</div>
+          <code>
+            prázdné := []<br>
+            <br>
+            pole := [1,2,3]<br>
+            jedna := pole[0]<br>
+            pole[0] := 111<br>
+            <br>
+            multi := [[1],["abc", Pravda]]<br>
+            abc := multi[1,0]<br>
+            <br>
+            dva := multi[1].velikost
+          </code>
+        </div>
+        <div>
+          <div>Podmínkový příkaz</div>
+          <code>
+            pokud a = 1 {<br>
+            &nbsp; je_jedna := Pravda<br>
+            }<br>
+            <br>
+            pokud a &gt; 1 {<br>
+            &nbsp; je_větší := Pravda<br>
+            }<br>
+            jinak {<br>
+            &nbsp; je_větší := Nepravda<br>
+            }
+          </code>
+        </div>
+        <div>
+          <div>Opakování</div>
+          <code>
+            i := 0<br>
+            dokud i &lt; 5 {<br>
+            &nbsp; i := i + 1<br>
+            }<br>
+            <br>
+            j := 1<br>
+            dokud j &lt; i {<br>
+            &nbsp; j := j + 1<br>
+            &nbsp; i := i - 1<br>
+            }
+          </code>
+        </div>
+        <div>
+          <div>Funkce</div>
+          <code>
+            fun_jedna := (){ 1 }<br>
+            tři := fun_jedna() + 2<br>
+            <br>
+            identita := (x){ x }<br>
+            čtyři := identita(4)<br>
+            <br>
+            plus := (x,y){ x + y }<br>
+            pět := plus(2,3)<br>
+            <br>
+            Zobraz(1 + 2)<br>
+            <br>
+            zobraz_1_2 := (){<br>
+            &nbsp; Zobraz(1)<br>
+            &nbsp; Zobraz(2)<br>
+            }<br>
+            zobraz_1_2()
+          </code>
+        </div>
+        <div>
+          <div>Objekty</div>
+          <code>
+            prázdný := {}<br>
+            <br>
+            souřadnice := { x:1, y:2 }<br>
+            x := souřadnice.x<br>
+            y := souřadnice.y<br>
+            <br>
+            robot := {<br>
+            &nbsp; jméno: "Ludolf",<br>
+            &nbsp; poloha: souřadnice,<br>
+            &nbsp; přesunout: (x,y){<br>
+            &nbsp; &nbsp; poloha.x := x<br>
+            &nbsp; &nbsp; poloha.y := y<br>
+            &nbsp; }<br>
+            }<br>
+            robot.přesunout(5,8)<br>
+            Zobraz(robot.poloha)
+          </code>
+        </div>
+        <div>
+          <div>Ludolf & Zobraz</div>
+          <code>
+            Ludolf.nahoru()<br>
+            Ludolf.dolů()<br>
+            Ludolf.doprava()<br>
+            Ludolf.doleva()<br>
+            <br>
+            Ludolf.vyhnout()<br>
+            Ludolf.dobít()<br>
+            <br>
+            Ludolf.poloha.x<br>
+            Ludolf.poloha.y<br>
+            <br>
+            Zobraz(1)<br>
+            Zobraz("Ahoj!")<br>
+            Zobraz("x =", 123)<br>
+            Zobraz(Ludolf)<br>
+          </code>
+        </div>
+      </div>
+      <div class="separator"><a name="tips"></a></div>
+      <div id="footer">
+        <div><a name="localization"></a>
+          <a href="#" class="localization-control" lang="en">&#x1f32d; English</a>
+          <a href="#" class="localization-control" lang="de">&#x1f968; Deutsch</a>
+          <a href="#" class="localization-control" lang="cs">&#x1f35e; Česky</a>
+        </div>
+        <div><a href="https://github.com/ttulka" target="_blank">&copy; Tomas Tulka (ttulka)</a></div>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

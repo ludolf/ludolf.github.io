@@ -1,0 +1,95 @@
+Nahoru := Pravda
+Dolů := Nepravda
+
+Propast := 30
+Energie := 40
+
+překonat_propast := () {
+  políčko := Mapa[Ludolf.poloha.x, Ludolf.poloha.y]
+  pokud políčko = Propast {
+    Ludolf.vyhnout()
+  }
+}
+
+dobít_energii := () {
+  políčko := Mapa[Ludolf.poloha.x, Ludolf.poloha.y]
+  pokud políčko = Energie {
+    Ludolf.dobít()
+  }
+}
+
+posunout_na := (x, y) {
+  dokud Ludolf.poloha.x != x | Ludolf.poloha.y != y {
+
+    překonat_propast()
+
+    pokud Ludolf.poloha.x > x {
+      Ludolf.doleva()
+    }
+    jinak pokud Ludolf.poloha.x < x {
+      Ludolf.doprava()
+    }
+    
+    pokud Ludolf.poloha.y > y {
+      Ludolf.dolů()
+    }
+    jinak pokud Ludolf.poloha.y < y {
+      Ludolf.nahoru()
+    }
+  }
+}
+
+Zobraz("Na začátek")
+
+posunout_na(0, 0)
+dobít_energii()
+
+Zobraz("Za energií")
+
+úroveň := 0
+
+dole := 0
+vlevo := 0
+nahoře := Mapa.velikost - 1
+vpravo := Mapa.velikost - 1
+
+dokud úroveň < 2 {
+  úroveň := úroveň + 1
+
+  // nahoru
+  y := dole
+  dokud y <= nahoře {
+    překonat_propast()
+    Ludolf.nahoru()
+    dobít_energii()
+    y := y + 1
+  }
+  vlevo := vlevo + 1
+
+  // doprava
+  x := vlevo
+  dokud x <= vpravo {
+    Ludolf.doprava()
+    dobít_energii()
+    x := x + 1
+  }
+  nahoře := nahoře - 1
+
+  // dolů
+  y := nahoře
+  dokud y >= dole {
+    Ludolf.dolů()
+    dobít_energii()
+    y := y - 1
+  }
+  vpravo := vpravo - 1
+
+  // doleva
+  x := vpravo
+  dokud x >= vlevo {
+    Ludolf.doleva()
+    dobít_energii()
+    x := x - 1
+  }
+  dole := dole + 1
+}
