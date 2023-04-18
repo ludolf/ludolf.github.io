@@ -52,3 +52,15 @@ td.on {
         margin: 0.5rem;
     } 
 }
+
+@media (max-width: 300px) {
+    body {
+        margin: 0.2rem;
+    } 
+    textarea {
+        font-size: 1.2rem;
+    }
+    button {
+        font-size: 2rem;
+    }
+}
