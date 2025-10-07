@@ -42,7 +42,7 @@ function decode(text) {
 
 function encode(code) {
     code = code.replaceAll(/[^01\s]/g, '').replaceAll(/\s+/g, ' ').trim()
-    const l = 8
+    const l = 5
     let encoded = ''
     let next = 0
     while (next < code.length + l) {
