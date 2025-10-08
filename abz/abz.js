@@ -41,15 +41,11 @@ function decode(text) {
 }
 
 function encode(code) {
-    code = code.replaceAll(/[^01\s]/g, '').replaceAll(/\s+/g, ' ').trim()
+    code = code.replaceAll(/[^01]/g, '').trim()
     const l = 5
     let encoded = ''
     let next = 0
     while (next < code.length + l) {
-        if (code[next] === ' ') {
-            encoded += ' '
-            next++;
-        }
         const b = code.substr(next, l)
         table.forEach((v, k) => {
             if (v === b) {
